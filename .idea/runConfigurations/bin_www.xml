@@ -1,0 +1,20 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="bin\www" type="NodeJSConfigurationType" path-to-js-file="out/index.js" working-dir="$PROJECT_DIR$">
+    <envs>
+      <env name="DEBUG" value="backend:*" />
+      <env name="DB_HOST" value="127.0.0.1" />
+      <env name="DB_PORT" value="3306" />
+      <env name="DB_USER" value="bugsbunny" />
+      <env name="DB_PASSWORD" value="TYP/B96@&lt;7fz3;{&amp;zJ{g@5(d@ssEZLbR" />
+      <env name="DB_DATABASE" value="bugsbunnies" />
+      <env name="AES_ENC_KEY" value="8768aea604fe0172d9273bfc27eacb8a" />
+      <env name="AES_IV" value="3e8f8530fe165e43" />
+    </envs>
+    <EXTENSION ID="com.jetbrains.nodejs.run.NodeJSStartBrowserRunConfigurationExtension">
+      <browser url="http://localhost:3000/" />
+    </EXTENSION>
+    <method v="2">
+      <option name="TypeScript.Before.Run" enabled="true" FAIL_ON_ERROR="true" CONFIG_PATH="$PROJECT_DIR$/tsconfig.json" />
+    </method>
+  </configuration>
+</component>
