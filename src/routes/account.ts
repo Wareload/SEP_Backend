@@ -13,7 +13,7 @@ let router = express.Router();
 /**
  * login
  *
- * requiere body json schema:
+ * require body json schema:
  *
  * {
  * "email": "test@example.com",
@@ -68,7 +68,7 @@ router.post('/login', async function (req, res, next) {
 /**
  * register
  *
- * requiere body json schema:
+ * require body json schema:
  *
  * {
  * "email": "test@example.com",
@@ -109,7 +109,7 @@ router.post('/register', function (req, res, next) {
 /**
  * logout
  *
- * requiere nothing
+ * require nothing
  *
  * clear client and database session
  */
@@ -124,5 +124,6 @@ router.post('/logout', function (req, res, next) {
         }
     });
 });
+
 
 export {router as accountRouter}
