@@ -125,5 +125,21 @@ router.post('/logout', function (req, res, next) {
     });
 });
 
+/**
+ * check if logged in
+ * 200 => logged in
+ * 401 => not logged in
+ * 500 => server error
+ */
+router.post('/isLoggedIn', function (req, res, next) {
+    // @ts-ignore
+    let user_id = req.session.user_id;
+    if (!user_id) {
+        res.status(401).send()
+    } else {
+        res.status(200).send();
+    }
+});
+
 
 export {router as accountRouter}
