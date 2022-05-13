@@ -23,5 +23,33 @@ function isPassword(password: string | undefined): boolean {
     return false;
 }
 
+/**
+ * is text with length >0 ad length <46
+ * @param text
+ */
+function isText45(text: string | undefined): boolean {
+    if (text != undefined && text.length > 0 && text.length < 46) {
+        return true;
+    }
+    return false;
+}
 
-export {isEmail, isPassword}
+/**
+ * check if tags is an array of strings
+ * @param tags
+ */
+function isTagsArray(tags: any): boolean {//TODO specify string of array
+    if (Array.isArray(tags)) {
+        for (let item of tags) {
+            if (typeof item !== 'string') {
+                return false;
+            }
+        }
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+export {isEmail, isPassword, isText45, isTagsArray}

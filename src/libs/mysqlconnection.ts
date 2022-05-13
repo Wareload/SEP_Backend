@@ -11,15 +11,19 @@ const connection = mysql.createPool({
     database: process.env.DB_DATABASE,
     connectionLimit: 10
 });
-
+//CREATE TABLE IF NOT EXISTS {NAME...}
 let user = "CREATE TABLE IF NOT EXISTS `user` (\n" +
     "  `user_id` int NOT NULL AUTO_INCREMENT,\n" +
     "  `email` varchar(400) NOT NULL,\n" +
     "  `password` varchar(500) NOT NULL,\n" +
+    "  `firstname` varchar(60) NOT NULL,\n" +
+    "  `lastname` varchar(60) NOT NULL,\n" +
+    "  `tags` json NOT NULL,\n" +
     "  PRIMARY KEY (`user_id`),\n" +
     "  UNIQUE KEY `user_id_UNIQUE` (`user_id`),\n" +
     "  UNIQUE KEY `email_UNIQUE` (`email`)\n" +
-    ") ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;\n"
+    ") ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;\n";
+
 try {
     connection.query(user);
 }catch (e){

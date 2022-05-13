@@ -72,7 +72,9 @@ router.post('/login', async function (req, res, next) {
  *
  * {
  * "email": "test@example.com",
- * "password": "ExamplePassword123"
+ * "password": "ExamplePassword123",
+ * "firstname": "Max",
+ * "lastname": "Muster"
  * }
  *
  * 400 => invalid format or parameter
@@ -82,21 +84,28 @@ router.post('/login', async function (req, res, next) {
 router.post('/register', function (req, res, next) {
     let email = req.body.email;
     let password = req.body.password;
-    if (!(validator.isEmail(email) && validator.isPassword(password))) {
-        res.status(400).send("Invalid E-Mail or Password");
+    let firstname = req.body.firstname;
+    let lastname = req.body.lastname;
+    if (!(validator.isEmail(email) && validator.isPassword(password) && validator.isText45(firstname) && validator.isText45(lastname))) {
+        res.status(400).send("Invalid Parameter");
         return;
     }
     email = aes.encrypt(email)
+    firstname = aes.encrypt(firstname)
+    lastname = aes.encrypt(lastname)
     bcrypt.hash(password, saltRounds, function (err, hash) {
         if (err) {
             res.status(500).send()
             return
         }
-
-        sql.query("INSERT INTO user (email, password) VALUES (?, ?)", [email, hash], function (err: any, sqlResult: { insertId: any; }, fields: any) {
+        sql.query("INSERT INTO user (email, password, firstname, lastname, tags) VALUES (?, ?, ?, ?, ?)", [email, hash, firstname, lastname, "[]"], function (err: any, sqlResult: { insertId: any; }, fields: any) {
             if (err) {
-                console.error(err)
-                res.status(409).send("E-Mail already taken")
+                if (err.errno == 1062) {
+                    res.status(409).send("E-Mail already taken")
+                } else {
+                    console.error(err)
+                    res.status(500).send();
+                }
             } else {
                 // @ts-ignore
                 req.session.user_id = sqlResult.insertId
@@ -110,6 +119,8 @@ router.post('/register', function (req, res, next) {
  * logout
  *
  * require nothing
+ * 200 => success
+ * 500 => internal server error
  *
  * clear client and database session
  */
