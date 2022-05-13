@@ -19,7 +19,7 @@ router.post("/getTeams", function (req, res, next) {
 
 })
 
-router.post("/changeTeamRole", function (req, res, next) {
+router.post("/promoteTeamLeader", function (req, res, next) {
 
 })
 
@@ -30,4 +30,10 @@ router.post("/addTeamMember", function (req, res, next) {
 router.post("/removeTeamMember", function (req, res, next) {
 
 })
+
+router.post("/leaveTeam", function (req, res, next) {
+
+})
+
+
 export {router as teamRouter}
