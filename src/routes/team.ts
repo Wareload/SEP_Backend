@@ -48,15 +48,48 @@ router.post("/createTeam", async function (req, res, next) {
     //create team
     //create user in team
 })
-
-router.post("/deleteTeam", function (req, res, next) {
+/**
+ * delete Team
+ *
+ * require body json schema:
+ * {
+ * "teamid": "9"
+ * }
+ *
+ * response:
+ * 200 => ok
+ * 400 => bad request
+ *      body:{"teamid":0,"teamname":"Your Team Name"}
+ * 401 => unauthorized
+ * 500 => internal server error
+ */
+router.post("/deleteTeam", async function (req, res, next) {
     // @ts-ignore
     let user_id = req.session.user_id;
     if (!user_id) {
         res.status(401).send();
         return;
     }
-
+    let teamId = req.body.teamid;
+    if (!validator.isId(teamId)) {
+        res.status(400).send("Invalid Parameter")
+        return;
+    }
+    try {
+        let memberResult = await sql.awaitQuery("SELECT null FROM teammember WHERE teamid = ? AND userid = ? AND leader = 1", [teamId, user_id]);
+        if (memberResult.length == 0) {
+            res.status(401).send();
+            return
+        } else {
+            await sql.awaitQuery("DELETE FROM `team` WHERE (`team_id` = ?)", [teamId]);
+            res.send({"id": teamId})
+            return;
+        }
+    } catch (e) {
+        console.error(e)
+        res.status(500).send()
+        return;
+    }
 })
 
 router.post("/getTeams", function (req, res, next) {

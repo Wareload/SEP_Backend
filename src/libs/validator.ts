@@ -38,7 +38,7 @@ function isText45(text: string | undefined): boolean {
  * check if tags is an array of strings
  * @param tags
  */
-function isTagsArray(tags: any): boolean {//TODO specify string of array
+function isTagsArray(tags: any): boolean {
     if (Array.isArray(tags)) {
         for (let item of tags) {
             if (typeof item !== 'string') {
@@ -51,5 +51,16 @@ function isTagsArray(tags: any): boolean {//TODO specify string of array
     }
 }
 
+/**
+ * check if id is a number
+ * @param id
+ */
+function isId(id: any): boolean {
+    if (id != undefined && Number(id)) {
+        return true;
+    }
+    return false;
+}
 
-export {isEmail, isPassword, isText45, isTagsArray}
+
+export {isEmail, isPassword, isText45, isTagsArray, isId}
