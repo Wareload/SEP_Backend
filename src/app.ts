@@ -6,6 +6,7 @@ import session from 'express-session';
 const MySQLStore = require('express-mysql-session')(session);
 import {accountRouter} from './routes/account'
 import {profileRouter} from "./routes/profile";
+import {teamRouter} from "./routes/team";
 
 let app = express()
 const options = {
@@ -36,5 +37,6 @@ app.use(session({
 
 app.use('/account', accountRouter)
 app.use("/profile", profileRouter)
+app.use("/team", teamRouter)
 
 export {app}
