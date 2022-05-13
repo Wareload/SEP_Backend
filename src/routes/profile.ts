@@ -6,7 +6,23 @@ import * as validator from '../libs/validator'
 
 let router = express.Router();
 
-
+/**
+ * adjust user profile
+ *
+ * require body schema:
+ * {
+ * "tags": ["1","2","3","4"],
+ * "firstname": "Jane",
+ * "lastname": "Doe"
+ * }
+ *
+ * response:
+ * 200 => ok
+ * 400 => invalid format or invalid parameter
+ * 401 => unauthorized
+ * 500 => internal server error
+ *
+ */
 router.post("/adjustProfile", async function (req, res, next) {
     // @ts-ignore
     let user_id = req.session.user_id;
@@ -40,6 +56,15 @@ router.post("/adjustProfile", async function (req, res, next) {
 
 })
 
+/**
+ * get user profile
+ *
+ * response:
+ * 200 => ok
+ * 401 => unauthorized
+ * 500 => internal server error
+ *
+ */
 router.post("/getProfile", async function (req, res, next) {
     // @ts-ignore
     let user_id = req.session.user_id;

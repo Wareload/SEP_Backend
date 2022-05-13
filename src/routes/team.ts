@@ -6,7 +6,22 @@ import * as validator from '../libs/validator'
 
 let router = express.Router();
 
-
+/**
+ * create Team
+ *
+ * require body json schema
+ *
+ * {
+ *     "teamname":"Your Team Name"
+ * }
+ *
+ * response:
+ * 200 => ok
+ * 400 => bad request
+ *      body:{"teamid":0,"teamname":"Your Team Name"}
+ * 401 => unauthorized
+ * 500 => internal server error
+ */
 router.post("/createTeam", async function (req, res, next) {
     // @ts-ignore
     let user_id = req.session.user_id;
