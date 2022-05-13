@@ -28,6 +28,7 @@ app.use(session({
     name: "bugsbunnies.sid",
     secret: 'O3Z?)lXU!:%q(F6+D"cU6:2G*Xri?SW7',
     saveUninitialized: false,
+    resave: true,
     cookie: {
         httpOnly: true,
         maxAge: 2628000000

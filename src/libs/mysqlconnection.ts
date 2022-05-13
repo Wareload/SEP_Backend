@@ -49,5 +49,9 @@ try {
     console.error("Error creating table user")
     process.exit(1)
 }
+deleteOldInvitations();
+async function deleteOldInvitations(){
+
+}
 
 export {connection as sql}

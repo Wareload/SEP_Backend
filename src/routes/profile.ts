@@ -57,7 +57,7 @@ router.post("/adjustProfile", async function (req, res, next) {
 })
 
 /**
- * get user profile
+ * get own user profile
  *
  * response:
  * 200 => ok
