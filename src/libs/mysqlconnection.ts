@@ -11,7 +11,6 @@ const connection = mysql.createPool({
     database: process.env.DB_DATABASE,
     connectionLimit: 20
 });
-//CREATE TABLE IF NOT EXISTS {NAME...}
 let user = "CREATE TABLE IF NOT EXISTS `user` (\n" +
     "  `user_id` int NOT NULL AUTO_INCREMENT,\n" +
     "  `email` varchar(400) NOT NULL,\n" +

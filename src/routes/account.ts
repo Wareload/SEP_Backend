@@ -98,20 +98,26 @@ router.post('/register', function (req, res, next) {
             res.status(500).send()
             return
         }
-        sql.query("INSERT INTO user (email, password, firstname, lastname, tags) VALUES (?, ?, ?, ?, ?)", [email, hash, firstname, lastname, "[]"], function (err: any, sqlResult: { insertId: any; }, fields: any) {
-            if (err) {
-                if (err.errno == 1062) {
-                    res.status(409).send("E-Mail already taken")
+        try {
+            sql.query("INSERT INTO user (email, password, firstname, lastname, tags) VALUES (?, ?, ?, ?, ?)", [email, hash, firstname, lastname, "[]"], function (err: any, sqlResult: { insertId: any; }, fields: any) {
+                if (err) {
+                    if (err.errno == 1062) {
+                        res.status(409).send("E-Mail already taken")
+                    } else {
+                        console.error(err)
+                        res.status(500).send();
+                    }
                 } else {
-                    console.error(err)
-                    res.status(500).send();
+                    // @ts-ignore
+                    req.session.user_id = sqlResult.insertId
+                    res.send()
                 }
-            } else {
-                // @ts-ignore
-                req.session.user_id = sqlResult.insertId
-                res.send()
-            }
-        })
+            })
+        } catch (e) {
+            console.error(e)
+            res.status(500).send()
+            return;
+        }
 
     });
 })

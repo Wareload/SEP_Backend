@@ -42,4 +42,8 @@ app.use("/profile", profileRouter)
 app.use("/team", teamRouter)
 app.use("/mood", moodRouter)
 
+// @ts-ignore
+app.use(function(err, req, res, next) {
+    res.status(err.status || 500).send();
+})
 export {app}

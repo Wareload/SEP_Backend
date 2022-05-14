@@ -4,7 +4,6 @@ import Debug from 'debug'
 
 const debug = Debug('backend:server')
 
-
 let port = 3000
 
 app.set('port', port)
