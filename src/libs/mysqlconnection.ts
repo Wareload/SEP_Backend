@@ -11,6 +11,7 @@ const connection = mysql.createPool({
     database: process.env.DB_DATABASE,
     connectionLimit: 20
 });
+//user table
 let user = "CREATE TABLE IF NOT EXISTS `user` (\n" +
     "  `user_id` int NOT NULL AUTO_INCREMENT,\n" +
     "  `email` varchar(400) NOT NULL,\n" +
@@ -22,12 +23,14 @@ let user = "CREATE TABLE IF NOT EXISTS `user` (\n" +
     "  UNIQUE KEY `user_id_UNIQUE` (`user_id`),\n" +
     "  UNIQUE KEY `email_UNIQUE` (`email`)\n" +
     ") ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;\n";
+//team table
 let team = "CREATE TABLE IF NOT EXISTS `team` (\n" +
     "  `team_id` int NOT NULL AUTO_INCREMENT,\n" +
     "  `name` varchar(60) NOT NULL,\n" +
     "  PRIMARY KEY (`team_id`),\n" +
     "  UNIQUE KEY `id_UNIQUE` (`team_id`)\n" +
     ") ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;\n"
+//teammember table
 let teammember = "CREATE TABLE IF NOT EXISTS `teammember` (\n" +
     "  `teammember_id` int NOT NULL AUTO_INCREMENT,\n" +
     "  `teamid` int NOT NULL,\n" +
@@ -41,6 +44,7 @@ let teammember = "CREATE TABLE IF NOT EXISTS `teammember` (\n" +
     "  CONSTRAINT `teammember_ibfk_1` FOREIGN KEY (`teamid`) REFERENCES `team` (`team_id`) ON DELETE CASCADE,\n" +
     "  CONSTRAINT `teammember_ibfk_2` FOREIGN KEY (`userid`) REFERENCES `user` (`user_id`)\n" +
     ") ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;\n"
+//invitations table
 let invitations = "CREATE TABLE IF NOT EXISTS `invitation` (\n" +
     "  `id` int NOT NULL AUTO_INCREMENT,\n" +
     "  `user_id` int NOT NULL,\n" +
@@ -55,6 +59,7 @@ let invitations = "CREATE TABLE IF NOT EXISTS `invitation` (\n" +
     "  CONSTRAINT `invitation_ibfk_2` FOREIGN KEY (`team_id`) REFERENCES `team` (`team_id`) ON DELETE CASCADE\n" +
     ") ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;\n"
 try {
+    //create tables if not exists
     connection.query(user)
     connection.query(team)
     connection.query(teammember)

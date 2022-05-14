@@ -3,8 +3,8 @@
  * @param email
  * @returns {boolean}
  */
-function isEmail(email: string | undefined): boolean {
-    if (email != undefined && email.length > 3 && email.length < 322 && /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)) {
+function isEmail(email: any): boolean {
+    if (email != undefined && typeof email == 'string' && email.length > 3 && email.length < 322 && /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)) {
         return true;
     }
     return false
@@ -16,8 +16,8 @@ function isEmail(email: string | undefined): boolean {
  * @param password
  * @returns {boolean}
  */
-function isPassword(password: string | undefined): boolean {
-    if (password != undefined && /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,50}/.test(password)) {
+function isPassword(password: any): boolean {
+    if (password != undefined && typeof password == 'string' && /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,50}/.test(password)) {
         return true;
     }
     return false;
@@ -27,8 +27,8 @@ function isPassword(password: string | undefined): boolean {
  * is text with length >0 ad length <46
  * @param text
  */
-function isText45(text: string | undefined): boolean {
-    if (text != undefined && text.length > 0 && text.length < 46) {
+function isText45(text: any): boolean {
+    if (text != undefined && typeof text == 'string' && text.length > 0 && text.length < 46) {
         return true;
     }
     return false;

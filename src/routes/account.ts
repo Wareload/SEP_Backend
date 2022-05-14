@@ -63,8 +63,6 @@ router.post('/login', async function (req, res, next) {
 
 
 });
-
-
 /**
  * register
  *
@@ -141,7 +139,6 @@ router.post('/logout', function (req, res, next) {
         }
     });
 });
-
 /**
  * check if logged in
  * 200 => logged in

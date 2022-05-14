@@ -178,6 +178,12 @@ router.post("/getTeam", async function (req, res, next) {
 })
 /**
  * remove team member as team leader
+ *
+ * require json body schema:
+ * {
+ * "teamid": 3,
+ * "userId": 25
+ * }
  */
 router.post("/removeTeamMember", async function (req, res, next) {
 // @ts-ignore
@@ -272,6 +278,12 @@ router.post("/getInvitations", async function (req, res, next) {
 })
 /**
  * promote another team member to team leader and set the current user to normal team member
+ *
+ * require json body schema:
+ * {
+ * "teamid": 3,
+ * "userId": 25
+ * }
  */
 router.post("/promoteTeamLeader", async function (req, res, next) {
 // @ts-ignore
@@ -307,6 +319,12 @@ router.post("/promoteTeamLeader", async function (req, res, next) {
 })
 /**
  * add team member invitation for another user
+ *
+ * require json body schema:
+ * {
+ * "userEmail": "3@wareload.net",
+ * "teamId": 2
+ * }
  */
 router.post("/addTeamMember", async function (req, res, next) {
 // @ts-ignore
@@ -348,6 +366,11 @@ router.post("/addTeamMember", async function (req, res, next) {
 })
 /**
  * accept team invitation to get a team member
+ *
+ * require json body schema:
+ * {
+ * "userId": 22
+ * }
  */
 router.post("/acceptInvitation", async function (req, res, next) {
 // @ts-ignore

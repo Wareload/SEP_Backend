@@ -3,7 +3,6 @@ import * as aes from '../libs/aes'
 import {sql} from '../libs/mysqlconnection'
 import * as validator from '../libs/validator'
 
-
 let router = express.Router();
 
 /**

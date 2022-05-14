@@ -37,6 +37,7 @@ app.use(session({
     store: sessionStore
 }))
 
+//router
 app.use('/account', accountRouter)
 app.use("/profile", profileRouter)
 app.use("/team", teamRouter)
