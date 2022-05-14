@@ -9,7 +9,7 @@ const connection = mysql.createPool({
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_DATABASE,
-    connectionLimit: 10
+    connectionLimit: 20
 });
 //CREATE TABLE IF NOT EXISTS {NAME...}
 let user = "CREATE TABLE IF NOT EXISTS `user` (\n" +
