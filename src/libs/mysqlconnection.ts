@@ -36,22 +36,34 @@ let teammember = "CREATE TABLE IF NOT EXISTS `teammember` (\n" +
     "  `leader` tinyint(1) NOT NULL,\n" +
     "  PRIMARY KEY (`teammember_id`),\n" +
     "  UNIQUE KEY `id_UNIQUE` (`teammember_id`),\n" +
+    "  UNIQUE KEY `teamid` (`teamid`,`userid`),\n" +
     "  KEY `userid` (`userid`),\n" +
     "  KEY `teammember_ibfk_1` (`teamid`),\n" +
     "  CONSTRAINT `teammember_ibfk_1` FOREIGN KEY (`teamid`) REFERENCES `team` (`team_id`) ON DELETE CASCADE,\n" +
     "  CONSTRAINT `teammember_ibfk_2` FOREIGN KEY (`userid`) REFERENCES `user` (`user_id`)\n" +
-    ") ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;\n";
+    ") ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;\n"
+let invitations = "CREATE TABLE IF NOT EXISTS `invitation` (\n" +
+    "  `id` int NOT NULL AUTO_INCREMENT,\n" +
+    "  `user_id` int NOT NULL,\n" +
+    "  `team_id` int NOT NULL,\n" +
+    "  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,\n" +
+    "  PRIMARY KEY (`id`),\n" +
+    "  UNIQUE KEY `id_UNIQUE` (`id`),\n" +
+    "  UNIQUE KEY `user_id` (`user_id`,`team_id`),\n" +
+    "  KEY `fk1_idx` (`team_id`),\n" +
+    "  KEY `invitation_ibfk_1` (`user_id`),\n" +
+    "  CONSTRAINT `invitation_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE,\n" +
+    "  CONSTRAINT `invitation_ibfk_2` FOREIGN KEY (`team_id`) REFERENCES `team` (`team_id`) ON DELETE CASCADE\n" +
+    ") ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;\n"
 try {
     connection.query(user)
     connection.query(team)
     connection.query(teammember)
+    connection.query(invitations)
 } catch (e) {
-    console.error("Error creating table user")
+    console.error(e)
     process.exit(1)
 }
-deleteOldInvitations();
-async function deleteOldInvitations(){
 
-}
 
 export {connection as sql}

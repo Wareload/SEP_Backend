@@ -132,6 +132,7 @@ router.post("/getTeams", async function (req, res, next) {
  *
  * require json body schema:
  * {"teamid": 5}
+ *
  */
 router.post("/getTeam", async function (req, res, next) {
     // @ts-ignore
@@ -175,26 +176,205 @@ router.post("/getTeam", async function (req, res, next) {
         return;
     }
 })
-
-router.post("/promoteTeamLeader", function (req, res, next) {
+/**
+ * remove team member as team leader
+ */
+router.post("/removeTeamMember", async function (req, res, next) {
+// @ts-ignore
+    let user_id = req.session.user_id;
+    if (!user_id) {
+        res.status(401).send();
+        return;
+    }
+    let memberId = req.body.userId;
+    let teamId = req.body.teamid;
+    if (!(validator.isId(teamId) && validator.isId(memberId))) {
+        res.status(400).send("Invalid Request");
+        return;
+    }
+    try {
+        let check = await sql.awaitQuery("SELECT null FROM teammember WHERE userid = ? AND teamid = ? AND leader = ?", [user_id, teamId, 1]);
+        if (check.length == 0) {
+            res.status(403).send()
+            return;
+        }
+        let result = await sql.awaitQuery("DELETE FROM teammember WHERE userid = ? AND teamid = ? AND leader = ?", [memberId, teamId, 0]);
+        if (result.affectedRows == 0) {
+            res.status(409).send();
+            return;
+        } else {
+            res.send({"teamid": teamId});
+            return;
+        }
+    } catch (e) {
+        console.error(e)
+        res.status(500).send()
+        return;
+    }
+})
+/**
+ * leave Team as non teamleader
+ *
+ * require json body schema:
+ * {"teamid": 5}
+ *
+ */
+router.post("/leaveTeam", async function (req, res, next) {
+    // @ts-ignore
+    let user_id = req.session.user_id;
+    if (!user_id) {
+        res.status(401).send();
+        return;
+    }
+    let teamId = req.body.teamid;
+    if (!validator.isId(teamId)) {
+        res.status(400).send("Invalid Request");
+        return;
+    }
+    try {
+        let result = await sql.awaitQuery("DELETE FROM teammember WHERE userid = ? AND teamid = ? AND leader = ?", [user_id, teamId, 0]);
+        if (result.affectedRows == 0) {
+            res.status(409).send();
+            return;
+        } else {
+            res.send({"teamid": teamId});
+            return;
+        }
+    } catch (e) {
+        console.error(e)
+        res.status(500).send()
+        return;
+    }
 
 })
-
-router.post("/addTeamMember", function (req, res, next) {
+/**
+ * get Invitation for current user
+ */
+router.post("/getInvitations", async function (req, res, next) {
+// @ts-ignore
+    let user_id = req.session.user_id;
+    if (!user_id) {
+        res.status(401).send();
+        return;
+    }
+    try {
+        let result = await sql.awaitQuery("SELECT team.team_id, team.name FROM invitation INNER JOIN team on invitation.team_id = team.team_id WHERE user_id = ?;", [user_id]);
+        let arr = [];
+        for (let item of result) {
+            let obj = {"id": item.team_id, "name": aes.decrypt(item.name)}
+            arr.push(obj)
+        }
+        res.send(arr)
+    } catch (e) {
+        console.error(e)
+        res.status(500).send()
+    }
+})
+/**
+ * promote another team member to team leader and set the current user to normal team member
+ */
+router.post("/promoteTeamLeader", async function (req, res, next) {
+// @ts-ignore
+    let user_id = req.session.user_id;
+    if (!user_id) {
+        res.status(401).send();
+        return;
+    }
+    let memberId = req.body.userId;
+    let teamId = req.body.teamid;
+    if (!(validator.isId(memberId) && validator.isId(teamId))) {
+        res.status(400).send("Invalid Request");
+        return;
+    }
+    try {
+        let check = await sql.awaitQuery("SELECT null FROM teammember WHERE userid = ? AND teamid = ? AND leader = ?", [user_id, teamId, 1]);
+        if (check.length == 0) {
+            res.status(403).send()
+            return;
+        }
+        let result = await sql.awaitQuery("UPDATE teammember SET leader = ? WHERE teamid = ? AND userid = ?;", [1, teamId, memberId]);
+        if (result.affectedRows == 0) {
+            res.status(409).send();
+            return;
+        } else {
+            await sql.awaitQuery("UPDATE teammember SET leader = ? WHERE teamid = ? AND userid = ?;", [0, teamId, user_id]);
+            res.send()
+        }
+    } catch (e) {
+        console.error(e)
+        res.status(500).send()
+    }
+})
+/**
+ * add team member invitation for another user
+ */
+router.post("/addTeamMember", async function (req, res, next) {
+// @ts-ignore
+    let user_id = req.session.user_id;
+    if (!user_id) {
+        res.status(401).send();
+        return;
+    }
+    let userEmail = req.body.userEmail;
+    let teamId = req.body.teamId;
+    if (!(validator.isId(teamId) && validator.isEmail(userEmail))) {
+        res.status(400).send("Invalid Request");
+        return;
+    }
+    try {
+        let result = await sql.awaitQuery("SELECT user_id FROM user WHERE email = ?", [aes.encrypt(userEmail)]);
+        if (result.length == 0) {
+            res.status(401).send("User not found")
+            return;
+        }
+        let userId = result[0].user_id;
+        let check = await sql.awaitQuery("SELECT * FROM teammember WHERE userid = ? AND teamid = ?", [userId, teamId]);
+        if (check.length > 0) {
+            res.status(403).send("User already part of the team")
+            return;
+        }
+        await sql.awaitQuery("INSERT INTO invitation (user_id, team_id) VALUES (?, ?)", [userId, teamId]);
+        res.send();
+    } catch (e) {
+        // @ts-ignore
+        if (e.errno == 1062) {
+            res.status(409).send("User already got an invitation");
+            return;
+        }
+        console.error(e)
+        res.status(500).send()
+        return;
+    }
+})
+/**
+ * accept team invitation to get a team member
+ */
+router.post("/acceptInvitation", async function (req, res, next) {
+// @ts-ignore
+    let user_id = req.session.user_id;
+    if (!user_id) {
+        res.status(401).send();
+        return;
+    }
+    let teamId = req.body.teamid;
+    if (!validator.isId(teamId)) {
+        res.status(400).send("Invalid Request");
+        return;
+    }
+    try {
+        let check = await sql.awaitQuery("DELETE FROM invitation WHERE user_id = ? AND team_id = ?", [user_id, teamId]);
+        if (check.affectedRows == 0) {
+            res.status(409).send();
+            return;
+        }
+        await sql.awaitQuery("INSERT INTO `bugsbunnies`.`teammember` (`teamid`, `userid`, `leader`) VALUES ('?', '?', '?')", [teamId, user_id, 0]);
+        res.send();
+    } catch (e) {
+        console.error(e)
+        res.status(500).send()
+        return;
+    }
 
 })
-
-router.post("/acceptInvitation", function (req, res, next) {
-
-})
-
-router.post("/removeTeamMember", function (req, res, next) {
-
-})
-
-router.post("/leaveTeam", function (req, res, next) {
-
-})
-
 
 export {router as teamRouter}
