@@ -11,7 +11,7 @@ services:
     ports:
       - 3306:3306
   node:
-    image: docker.bugsbunies.de/sep-backend:0.1
+    image: docker.bugsbunnies.de/sep-backend:0.1
     restart: always
     env_file:
       - environment.env
