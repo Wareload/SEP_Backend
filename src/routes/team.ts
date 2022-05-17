@@ -276,6 +276,7 @@ router.post("/getInvitations", async function (req, res, next) {
         res.status(500).send()
     }
 })
+//TODO check if email would be a better way or get id from get team
 /**
  * promote another team member to team leader and set the current user to normal team member
  *
