@@ -370,7 +370,7 @@ router.post("/addTeamMember", async function (req, res, next) {
  *
  * require json body schema:
  * {
- * "userId": 22
+ * "teamid": 22
  * }
  */
 router.post("/acceptInvitation", async function (req, res, next) {
