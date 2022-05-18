@@ -44,7 +44,10 @@ app.use("/team", teamRouter)
 app.use("/mood", moodRouter)
 
 // @ts-ignore
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
+    console.error(err)
     res.status(err.status || 500).send();
 })
+
+
 export {app}

@@ -157,6 +157,7 @@ router.post("/getTeam", async function (req, res, next) {
         let resultTeammember = await sql.awaitQuery("SELECT userid, leader, user.email, user.firstname, user.lastname, user.tags FROM teammember INNEER JOIN user ON userid=user.user_id WHERE teamId = ?", [teamId]);
         let member = [];
         for (let item of resultTeammember) {
+            let userId = item.userid
             let email = aes.decrypt(item.email);
             let firstname = aes.decrypt(item.firstname);
             let lastname = aes.decrypt(item.lastname);
@@ -165,7 +166,7 @@ router.post("/getTeam", async function (req, res, next) {
             for (let tag of encTags) {
                 tags.push(aes.decrypt(tag))
             }
-            let obj = {"email": email, "firstname": firstname, "lastname": lastname, "tags": tags}
+            let obj = {"userid": userId, "email": email, "firstname": firstname, "lastname": lastname, "tags": tags}
             member.push(obj)
         }
         let obj = {"teamname": aes.decrypt(resultTeam[0].name), "teamid": teamId, "member": member};
