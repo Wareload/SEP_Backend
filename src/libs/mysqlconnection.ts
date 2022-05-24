@@ -57,17 +57,20 @@ let invitations = "CREATE TABLE IF NOT EXISTS `invitation` (\n" +
     "  KEY `invitation_ibfk_1` (`user_id`),\n" +
     "  CONSTRAINT `invitation_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE,\n" +
     "  CONSTRAINT `invitation_ibfk_2` FOREIGN KEY (`team_id`) REFERENCES `team` (`team_id`) ON DELETE CASCADE\n" +
-    ") ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;\n"
-try {
-    //create tables if not exists
-    connection.query(user)
-    connection.query(team)
-    connection.query(teammember)
-    connection.query(invitations)
-} catch (e) {
-    console.error(e)
-    process.exit(1)
-}
+    ") ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;\n";
 
+
+(async () => {
+    try {
+        //create tables if not exists
+        await connection.awaitQuery(user)
+        await connection.awaitQuery(team)
+        await connection.awaitQuery(teammember)
+        await connection.awaitQuery(invitations)
+    } catch (e) {
+        console.error(e)
+        process.exit(1)
+    }
+})();
 
 export {connection as sql}
