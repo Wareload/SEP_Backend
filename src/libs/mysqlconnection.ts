@@ -1,5 +1,6 @@
 // @ts-ignore
 import mysql from 'mysql-await'
+import fs from "fs"
 
 //create mysql connection to export
 const connection = mysql.createPool({
@@ -9,7 +10,10 @@ const connection = mysql.createPool({
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_DATABASE,
-    connectionLimit: 20
+    connectionLimit: 20,
+    ssl: {
+        ca: fs.readFileSync(__dirname + '/../../cert/cert.pem')
+    }
 });
 //user table
 let user = "CREATE TABLE IF NOT EXISTS `user` (\n" +

@@ -3,6 +3,7 @@ import cookieParser from 'cookie-parser'
 import logger from 'morgan'
 import session from 'express-session';
 import cors from "cors"
+import fs from "fs"
 
 const MySQLStore = require('express-mysql-session')(session);
 import {accountRouter} from './routes/account'
@@ -16,7 +17,10 @@ const options = {
     port: process.env.DB_PORT,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
-    database: process.env.DB_DATABASE
+    database: process.env.DB_DATABASE,
+    ssl: {
+        ca: fs.readFileSync(__dirname + '/../cert/cert.pem')
+    }
 };
 
 const sessionStore = new MySQLStore(options);
