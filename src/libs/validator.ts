@@ -4,7 +4,7 @@
  * @returns {boolean}
  */
 function isEmail(email: any): boolean {
-    if (email != undefined && typeof email == 'string' && email.length > 3 && email.length < 322 && /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)) {
+    if (email != undefined && typeof email == 'string' && email.length > 3 && email.length <= 322 && /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)) {
         return true;
     }
     return false
@@ -17,7 +17,7 @@ function isEmail(email: any): boolean {
  * @returns {boolean}
  */
 function isPassword(password: any): boolean {
-    if (password != undefined && typeof password == 'string' && /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,50}/.test(password)) {
+    if (password != undefined && typeof password == 'string' && password.length > 7 && password.length < 51 && /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/.test(password)) {
         return true;
     }
     return false;
@@ -56,7 +56,7 @@ function isTagsArray(tags: any): boolean {
  * @param id
  */
 function isId(id: any): boolean {
-    if (id != undefined && Number(id)) {
+    if (id != undefined && typeof id != "boolean" && Number(id)) {
         return true;
     }
     return false;

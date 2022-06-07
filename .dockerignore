@@ -1,6 +1,9 @@
 tsconfig.json
+tsconfig.build.json
+jest.config.js
 src
 node_modules
 .gitignore
 .idea
 doc
+README.md
