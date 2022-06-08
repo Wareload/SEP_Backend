@@ -28,7 +28,7 @@ let router = express.Router();
  *
  */
 router.post('/login', async function (req, res, next) {
-    let email = req.body.email;
+    let email = req.body.email.toLowerCase();
     let password = req.body.password;
     if (!(validator.isEmail(email) && validator.isPassword(password))) {
         res.status(400).send("Invalid E-Mail or Password");
@@ -80,7 +80,7 @@ router.post('/login', async function (req, res, next) {
  * 500 => internal server error
  */
 router.post('/register', function (req, res, next) {
-    let email = req.body.email;
+    let email = req.body.email.toLowerCase();
     let password = req.body.password;
     let firstname = req.body.firstname;
     let lastname = req.body.lastname;

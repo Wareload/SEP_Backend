@@ -2,6 +2,7 @@ import express from 'express'
 import cookieParser from 'cookie-parser'
 import logger from 'morgan'
 import session from 'express-session';
+import cors from "cors"
 
 const MySQLStore = require('express-mysql-session')(session);
 import {accountRouter} from './routes/account'
@@ -20,6 +21,7 @@ const options = {
 
 const sessionStore = new MySQLStore(options);
 
+app.use(cors())
 app.use(logger('dev'))
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
@@ -44,7 +46,10 @@ app.use("/team", teamRouter)
 app.use("/mood", moodRouter)
 
 // @ts-ignore
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
+    console.error(err)
     res.status(err.status || 500).send();
 })
+
+
 export {app}

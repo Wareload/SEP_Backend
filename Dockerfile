@@ -8,4 +8,4 @@ RUN npm ci --only=production
 
 COPY . .
 
-CMD sleep 30 && npm start
+CMD npm start
