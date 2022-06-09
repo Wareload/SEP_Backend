@@ -3,7 +3,6 @@ import * as func from "./accountFunctionality"
 
 let router = express.Router();
 
-
 /**
  * login
  *
@@ -25,6 +24,9 @@ router.post('/login', async function (req, res, next) {
     const email = req.body.email
     const password = req.body.password;
     const response = await func.login(email, password)
+    if (response.user_id) {
+        req.session.user_id = response.user_id;
+    }
     res.status(response.status).send(response.body)
 });
 /**
@@ -49,6 +51,9 @@ router.post('/register', async function (req, res, next) {
     const firstname = req.body.firstname;
     const lastname = req.body.lastname;
     const response = await func.register(email, password, firstname, lastname)
+    if (response.user_id) {
+        req.session.user_id = response.user_id;
+    }
     res.status(response.status).send(response.body)
 })
 /**
@@ -60,7 +65,7 @@ router.post('/register', async function (req, res, next) {
  *
  * clear client and database session
  */
-router.post('/logout', function (req, res, next) {
+router.post('/logout', async function (req, res, next) {
     req.session.destroy((err) => {
         if (err) {
             console.error(err)
