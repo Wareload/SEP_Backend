@@ -5,10 +5,10 @@ import session from 'express-session';
 import cors from "cors"
 
 const MySQLStore = require('express-mysql-session')(session);
-import {accountRouter} from './routes/account'
-import {profileRouter} from "./routes/profile";
-import {teamRouter} from "./routes/team";
-import {moodRouter} from "./routes/mood";
+import {accountRouter} from './routes/accountRoute'
+import {profileRouter} from "./routes/profileRoute";
+import {teamRouter} from "./routes/teamRoute";
+import {moodRouter} from "./routes/moodRoute";
 
 let app = express()
 const options = {
