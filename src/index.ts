@@ -9,7 +9,7 @@ let port = 3000
 
 app.set('port', port)
 
-let server = http.createServer(app)
+const server = http.createServer(app)
 
 server.listen(port)
 
@@ -18,7 +18,7 @@ function onError(error: any) {
         throw error;
     }
 
-    var bind = typeof port === 'string'
+    const bind = typeof port === 'string'
         ? 'Pipe ' + port
         : 'Port ' + port;
 
@@ -40,9 +40,9 @@ function onError(error: any) {
 server.on('error', onError);
 
 function onListening() {
-    let addr = server.address();
+    const addr = server.address();
     // @ts-ignore
-    var bind = typeof addr !== 'string' ? 'port ' + addr.port : 'pipe ' + addr;
+    const bind = typeof addr !== 'string' ? 'port ' + addr.port : 'pipe ' + addr;
     debug('Listening on ' + bind);
 }
 

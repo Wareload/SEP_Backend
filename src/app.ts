@@ -10,7 +10,7 @@ import {profileRouter} from "./routes/profileRoute";
 import {teamRouter} from "./routes/teamRoute";
 import {moodRouter} from "./routes/moodRoute";
 
-let app = express()
+const app = express()
 const options = {
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,

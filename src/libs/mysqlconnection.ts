@@ -12,7 +12,7 @@ const connection = mysql.createPool({
     connectionLimit: 20
 });
 //user table
-let user = "CREATE TABLE IF NOT EXISTS `user` (\n" +
+const user = "CREATE TABLE IF NOT EXISTS `user` (\n" +
     "  `user_id` int NOT NULL AUTO_INCREMENT,\n" +
     "  `email` varchar(400) NOT NULL,\n" +
     "  `password` varchar(500) NOT NULL,\n" +
@@ -24,14 +24,14 @@ let user = "CREATE TABLE IF NOT EXISTS `user` (\n" +
     "  UNIQUE KEY `email_UNIQUE` (`email`)\n" +
     ") ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;\n";
 //team table
-let team = "CREATE TABLE IF NOT EXISTS `team` (\n" +
+const team = "CREATE TABLE IF NOT EXISTS `team` (\n" +
     "  `team_id` int NOT NULL AUTO_INCREMENT,\n" +
     "  `name` varchar(60) NOT NULL,\n" +
     "  PRIMARY KEY (`team_id`),\n" +
     "  UNIQUE KEY `id_UNIQUE` (`team_id`)\n" +
     ") ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;\n"
 //teammember table
-let teammember = "CREATE TABLE IF NOT EXISTS `teammember` (\n" +
+const teammember = "CREATE TABLE IF NOT EXISTS `teammember` (\n" +
     "  `teammember_id` int NOT NULL AUTO_INCREMENT,\n" +
     "  `teamid` int NOT NULL,\n" +
     "  `userid` int NOT NULL,\n" +
@@ -45,7 +45,7 @@ let teammember = "CREATE TABLE IF NOT EXISTS `teammember` (\n" +
     "  CONSTRAINT `teammember_ibfk_2` FOREIGN KEY (`userid`) REFERENCES `user` (`user_id`)\n" +
     ") ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;\n"
 //invitations table
-let invitations = "CREATE TABLE IF NOT EXISTS `invitation` (\n" +
+const invitations = "CREATE TABLE IF NOT EXISTS `invitation` (\n" +
     "  `id` int NOT NULL AUTO_INCREMENT,\n" +
     "  `user_id` int NOT NULL,\n" +
     "  `team_id` int NOT NULL,\n" +
