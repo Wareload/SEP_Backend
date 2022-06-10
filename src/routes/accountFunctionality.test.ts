@@ -4,6 +4,8 @@ process.env.DB_USER = process.env.DB_USER_TEST
 process.env.DB_PASSWORD = process.env.DB_PASSWORD_TEST
 process.env.DB_DATABASE = process.env.DB_DATABASE_TEST
 
+import * as func from "./accountFunctionality"
+
 // @ts-ignore
 import mysql from 'mysql-await'
 
@@ -15,8 +17,6 @@ let connection = mysql.createConnection({
     password: process.env.DB_PASSWORD,
     database: process.env.DB_DATABASE
 });
-
-import * as func from "./accountFunctionality"
 
 
 beforeEach(async () => {

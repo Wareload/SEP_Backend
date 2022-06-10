@@ -23,7 +23,6 @@ let router = express.Router();
  * 500 => internal server error
  */
 router.post("/createTeam", async function (req, res, next) {
-    // @ts-ignore
     let user_id = req.session.user_id;
     if (!user_id) {
         res.status(401).send();
@@ -64,7 +63,6 @@ router.post("/createTeam", async function (req, res, next) {
  * 500 => internal server error
  */
 router.post("/deleteTeam", async function (req, res, next) {
-    // @ts-ignore
     let user_id = req.session.user_id;
     if (!user_id) {
         res.status(401).send();
@@ -107,7 +105,6 @@ router.post("/deleteTeam", async function (req, res, next) {
  *
  */
 router.post("/getTeams", async function (req, res, next) {
-    // @ts-ignore
     let user_id = req.session.user_id;
     if (!user_id) {
         res.status(401).send();
@@ -135,7 +132,6 @@ router.post("/getTeams", async function (req, res, next) {
  *
  */
 router.post("/getTeam", async function (req, res, next) {
-    // @ts-ignore
     let user_id = req.session.user_id;
     if (!user_id) {
         res.status(401).send();
@@ -187,7 +183,6 @@ router.post("/getTeam", async function (req, res, next) {
  * }
  */
 router.post("/removeTeamMember", async function (req, res, next) {
-// @ts-ignore
     let user_id = req.session.user_id;
     if (!user_id) {
         res.status(401).send();
@@ -227,7 +222,6 @@ router.post("/removeTeamMember", async function (req, res, next) {
  *
  */
 router.post("/leaveTeam", async function (req, res, next) {
-    // @ts-ignore
     let user_id = req.session.user_id;
     if (!user_id) {
         res.status(401).send();
@@ -258,7 +252,6 @@ router.post("/leaveTeam", async function (req, res, next) {
  * get Invitation for current user
  */
 router.post("/getInvitations", async function (req, res, next) {
-// @ts-ignore
     let user_id = req.session.user_id;
     if (!user_id) {
         res.status(401).send();
@@ -277,7 +270,6 @@ router.post("/getInvitations", async function (req, res, next) {
         res.status(500).send()
     }
 })
-//TODO check if email would be a better way or get id from get team
 /**
  * promote another team member to team leader and set the current user to normal team member
  *
@@ -288,7 +280,6 @@ router.post("/getInvitations", async function (req, res, next) {
  * }
  */
 router.post("/promoteTeamLeader", async function (req, res, next) {
-// @ts-ignore
     let user_id = req.session.user_id;
     if (!user_id) {
         res.status(401).send();
@@ -329,7 +320,6 @@ router.post("/promoteTeamLeader", async function (req, res, next) {
  * }
  */
 router.post("/addTeamMember", async function (req, res, next) {
-// @ts-ignore
     let user_id = req.session.user_id;
     if (!user_id) {
         res.status(401).send();
@@ -375,7 +365,6 @@ router.post("/addTeamMember", async function (req, res, next) {
  * }
  */
 router.post("/acceptInvitation", async function (req, res, next) {
-// @ts-ignore
     let user_id = req.session.user_id;
     if (!user_id) {
         res.status(401).send();

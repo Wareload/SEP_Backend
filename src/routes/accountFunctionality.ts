@@ -5,6 +5,12 @@ import * as validator from '../libs/validator'
 
 const saltRounds = 10
 
+/**
+ * try to login
+ *
+ * @param email
+ * @param password
+ */
 async function login(email: any, password: any): Promise<{ status: number, user_id?: number, body?: {} }> {
     if (!(validator.isEmail(email) && validator.isPassword(password))) {
         return {status: 400}
@@ -28,6 +34,13 @@ async function login(email: any, password: any): Promise<{ status: number, user_
     }
 }
 
+/**
+ * try to register
+ * @param email
+ * @param password
+ * @param firstname
+ * @param lastname
+ */
 async function register(email: any, password: any, firstname: any, lastname: any): Promise<{ status: number, user_id?: number, body?: {} }> {
     if (!(validator.isEmail(email) && validator.isPassword(password) && validator.isText45(firstname) && validator.isText45(lastname))) {
         return {status: 400}
@@ -49,7 +62,7 @@ async function register(email: any, password: any, firstname: any, lastname: any
 }
 
 /**
- * checks if is logged in or not and returns an object with the matching http code and the http body
+ * checks if user is logged in
  * @param user_id
  */
 function isLoggedIn(user_id: any): { status: number, body?: {} } {
