@@ -59,7 +59,7 @@ const invitations = "CREATE TABLE IF NOT EXISTS `invitation` (\n" +
     ") ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;\n";
 
 
-(async () => {
+async function setup() {
     try {
         //create tables if not exists
         await connection.awaitQuery(user)
@@ -70,6 +70,8 @@ const invitations = "CREATE TABLE IF NOT EXISTS `invitation` (\n" +
         console.error(e)
         process.exit(1)
     }
-})();
+}
+
+setup();
 
 export {connection as sql}

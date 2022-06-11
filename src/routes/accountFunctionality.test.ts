@@ -1,23 +1,23 @@
-process.env.DB_HOST = process.env.DB_HOST_TEST
-process.env.DB_PORT = process.env.DB_PORT_TEST
-process.env.DB_USER = process.env.DB_USER_TEST
-process.env.DB_PASSWORD = process.env.DB_PASSWORD_TEST
-process.env.DB_DATABASE = process.env.DB_DATABASE_TEST
-
 import * as func from "./accountFunctionality"
 
 // @ts-ignore
 import mysql from 'mysql-await'
 
-//create mysql connection to export
-let connection = mysql.createConnection({
-    host: process.env.DB_HOST,
-    port: process.env.DB_PORT,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_DATABASE
-});
+let connection: any;
 
+if (process.env.TEST_DB) {
+    try {
+        connection = mysql.createConnection({
+            host: process.env.DB_HOST,
+            port: process.env.DB_PORT,
+            user: process.env.DB_USER,
+            password: process.env.DB_PASSWORD,
+            database: process.env.DB_DATABASE
+        });
+    } catch (e) {
+        console.error(e)
+    }
+}
 
 beforeEach(async () => {
     if (process.env.TEST_DB) {
@@ -33,11 +33,23 @@ beforeEach(async () => {
     }
 })
 
-afterAll(() => {
-    connection.end();
+afterAll(async () => {
+    if (process.env.TEST_DB) {
+        try {
+            await connection.awaitQuery("DELETE FROM invitation")
+            await connection.awaitQuery("DELETE FROM teammember")
+            await connection.awaitQuery("DELETE FROM team")
+            await connection.awaitQuery("DELETE FROM user")
+            await connection.awaitQuery("DELETE FROM sessions")
+            connection.end();
+        } catch (e) {
+            console.error(e)
+        }
+    }
 })
 
 test("Test Is Logged In", () => {
+
     if (process.env.TEST_DB) {
         expect(func.isLoggedIn(5)).toEqual({status: 200})
         expect(func.isLoggedIn(9)).toEqual({status: 200})
