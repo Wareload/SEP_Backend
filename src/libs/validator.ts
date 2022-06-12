@@ -35,6 +35,17 @@ function isText45(text: any): boolean {
 }
 
 /**
+ * is text with length >0 ad length <71
+ * @param text
+ */
+function isText70(text: any): boolean {
+    if ((text == undefined) || (typeof text == 'string' && text.length < 71)) {
+        return true;
+    }
+    return false;
+}
+
+/**
  * check if tags is an array of strings
  * @param tags
  */
@@ -62,5 +73,29 @@ function isId(id: any): boolean {
     return false;
 }
 
+/**
+ * check if id is a number
+ * @param id
+ */
+function isIdMood(id: any): boolean {
+    if (id != undefined && typeof id != "boolean" && (Number(id) == 0 || Number(id) == 1 || Number(id) == 2)) {
+        return true;
+    }
+    return false;
+}
 
-export {isEmail, isPassword, isText45, isTagsArray, isId}
+function isDate(date: any): boolean {
+    if (date != undefined && typeof date == "string") {
+        const split: string[] = date.split("-");
+        if (split[0].length == 4 && isNumeric(split[0]) && split[1].length == 2 && isNumeric(split[1]) && split[2].length == 2 && isNumeric(split[2])) {
+            return true
+        }
+    }
+    return false
+}
+
+function isNumeric(n: any) {
+    return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
+export {isEmail, isPassword, isText45, isText70, isTagsArray, isId, isIdMood, isDate}

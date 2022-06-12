@@ -58,6 +58,21 @@ const invitations = "CREATE TABLE IF NOT EXISTS `invitation` (\n" +
     "  CONSTRAINT `invitation_ibfk_2` FOREIGN KEY (`team_id`) REFERENCES `team` (`team_id`) ON DELETE CASCADE\n" +
     ") ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;\n";
 
+//mood table
+const mood = "CREATE TABLE IF NOT EXISTS `mood` (\n" +
+    "  `mood_id` int NOT NULL AUTO_INCREMENT,\n" +
+    "  `user_id` int NOT NULL,\n" +
+    "  `team_id` int NOT NULL,\n" +
+    "  `mood` smallint NOT NULL,\n" +
+    "  `note` varchar(80) NOT NULL,\n" +
+    "  `datestamp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\n" +
+    "  PRIMARY KEY (`mood_id`),\n" +
+    "  UNIQUE KEY `mood_id_UNIQUE` (`mood_id`),\n" +
+    "  KEY `mood_fk1_idx` (`team_id`),\n" +
+    "  KEY `user_id` (`user_id`),\n" +
+    "  CONSTRAINT `mood_fk1` FOREIGN KEY (`team_id`) REFERENCES `team` (`team_id`) ON DELETE CASCADE ON UPDATE CASCADE,\n" +
+    "  CONSTRAINT `mood_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)\n" +
+    ") ENGINE=InnoDB AUTO_INCREMENT=80 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;\n"
 
 async function setup() {
     try {
@@ -66,6 +81,7 @@ async function setup() {
         await connection.awaitQuery(team)
         await connection.awaitQuery(teammember)
         await connection.awaitQuery(invitations)
+        await connection.awaitQuery(mood)
     } catch (e) {
         console.error(e)
         process.exit(1)

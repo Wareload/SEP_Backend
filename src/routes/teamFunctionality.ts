@@ -8,7 +8,6 @@ import * as validator from '../libs/validator'
  * @param teamName
  */
 async function createTeam(user_id: any, teamName: any): Promise<{ status: number, body?: {} }> {
-    return {status: 200}
     if (!user_id) {
         return {status: 401};
     }

@@ -49,7 +49,6 @@ afterAll(async () => {
 })
 
 test("Test Is Logged In", () => {
-
     if (process.env.TEST_DB) {
         expect(func.isLoggedIn(5)).toEqual({status: 200})
         expect(func.isLoggedIn(9)).toEqual({status: 200})

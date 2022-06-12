@@ -1,18 +1,37 @@
 import express from "express";
+import * as func from "./moodFunctionality"
 
 let router = express.Router();
 
-router.post("/getTimer", function (req, res, next) {
+router.post("/getTimer", async function (req, res, next) {
+    const user_id = req.session.user_id;
+    const teamId = req.body.teamid;
+    const result = await func.getTimer(user_id, teamId);
+    res.status(result.status).send(result.body)
 })
-router.post("/setMood", function (req, res, next) {
+router.post("/setMood", async function (req, res, next) {
+    const user_id = req.session.user_id;
+    const mood = req.body.mood;
+    const note = req.body.note;
+    const teamId = req.body.teamid;
+    const result = await func.setMood(user_id, mood, note, teamId)
+    res.status(result.status).send(result.body)
 })
-router.post("/getDailyQuote", function (req, res, next) {
-    res.send({"quote": "Work smart, not hard!"})
+router.post("/getPersonalMood", async function (req, res, next) {
+    const user_id = req.session.user_id;
+    const teamId = req.body.teamid;
+    const startDate = req.body.startDate;
+    const endDate = req.body.endDate;
+    const result = await func.getPersonalMood(user_id, teamId, startDate, endDate);
+    res.status(result.status).send(result.body)
 })
-router.post("/getPersonalMood", function (req, res, next) {
+router.post("/getTeamMood", async function (req, res, next) {
+    const user_id = req.session.user_id;
+    const teamId = req.body.teamid;
+    const startDate = req.body.startDate;
+    const endDate = req.body.endDate;
+    const result = await func.getTeamMood(user_id, teamId, startDate, endDate);
+    res.status(result.status).send(result.body)
 })
-router.post("/getTeamMood", function (req, res, next) {
-})
-
 
 export {router as moodRouter}
