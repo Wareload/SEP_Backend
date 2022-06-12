@@ -103,6 +103,10 @@ paths:
       responses:
         200:
           description: Successful Get Profile
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProfileInfo'
         401:
           description: Unauthorized
         500:
@@ -158,7 +162,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/GetMood'
+              $ref: '#/components/schemas/ResGetMood'
       description: Get Personal Mood
       tags:
         - Mood
@@ -178,7 +182,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/GetMood'
+              $ref: '#/components/schemas/ResGetMood'
       description: Get Team Mood
       tags:
         - Mood
@@ -205,6 +209,10 @@ paths:
       responses:
         200:
           description: Successful Create a new Team
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamInfo'
         400:
           description: Bad Request
         401:
@@ -519,3 +527,34 @@ components:
         teamId:
           type: number
           example: 5
+    ProfileInfo:
+      properties:
+        email:
+          type: string
+          example: test@test.net
+        firstname:
+          type: string
+          example: John
+        lastname:
+          type: string
+          example: Doe
+        tags:
+          type: array
+          example: [ "Java", "C++", "Lisp" ]
+          items:
+            type: string
+    ResGetMood:
+      properties:
+        mood:
+          type: array
+          example: [{mood: 2, note: "Good day", date: 2022-05-05},{mood: 0, note: "Bad day", date: 2022.05.06}]
+          items:
+            type: object
+    TeamInfo:
+      properties:
+        teamid:
+          type: number
+          example: 19
+        teamname:
+          type: string
+          example: "Bugs Bunnies"
