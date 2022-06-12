@@ -15,6 +15,12 @@ servers:
 paths:
   /account/register:
     post:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Register'
       description: Register
       tags:
         - Account
@@ -29,6 +35,12 @@ paths:
           description: Server Error
   /account/login:
     post:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Login'
       description: Login
       tags:
         - Account
@@ -65,6 +77,12 @@ paths:
           description: Server Error
   /profile/adjustProfile:
     post:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Profile'
       description: Adjust Profile
       tags:
         - Profile
@@ -91,6 +109,12 @@ paths:
           description: Server Error
   /mood/getTimer:
     post:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Timer'
       description: Get Timer
       tags:
         - Mood
@@ -105,6 +129,12 @@ paths:
           description: Server Error
   /mood/setMood:
     post:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetMood'
       description: Set Mood
       tags:
         - Mood
@@ -123,6 +153,12 @@ paths:
           description: Server Error
   /mood/getPersonalMood:
     post:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetMood'
       description: Get Personal Mood
       tags:
         - Mood
@@ -137,6 +173,12 @@ paths:
           description: Server Error
   /mood/getTeamMood:
     post:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetMood'
       description: Get Team Mood
       tags:
         - Mood
@@ -151,6 +193,12 @@ paths:
           description: Server Error
   /team/createTeam:
     post:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamName'
       description: Create a new Team
       tags:
         - Team
@@ -165,6 +213,12 @@ paths:
           description: Server Error
   /team/deleteTeam:
     post:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamId'
       description: Delete a new Team
       tags:
         - Team
@@ -191,6 +245,12 @@ paths:
           description: Server Error
   /team/getTeam:
     post:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamId'
       description: Get Team by id
       tags:
         - Team
@@ -205,6 +265,12 @@ paths:
           description: Server Error
   /team/removeTeamMember:
     post:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamMember'
       description: Get Team by id
       tags:
         - Team
@@ -223,6 +289,12 @@ paths:
           description: Server Error
   /team/leaveTeam:
     post:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamId'
       description: Leave Team by id
       tags:
         - Team
@@ -251,6 +323,12 @@ paths:
           description: Server Error
   /team/promoteTeamLeader:
     post:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamMember'
       description: Promote other team member to team leader and demote self
       tags:
         - Team
@@ -269,6 +347,12 @@ paths:
           description: Server Error
   /team/addTeamMember:
     post:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddTeamMember'
       description: Add team member to team
       tags:
         - Team
@@ -287,6 +371,12 @@ paths:
           description: Server Error
   /team/acceptInvitation:
     post:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamId'
       description: Accept invitation
       tags:
         - Team
@@ -301,3 +391,131 @@ paths:
           description: Conflict, already got an invitation
         500:
           description: Server Error
+security:
+  - cookieAuth: []
+components:
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: bugsbunnies.sid
+  schemas:
+    Login:
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+          example: "test@test.test"
+        password:
+          type: string
+          example: "TestTest123"
+    Register:
+      required:
+        - email
+        - password
+        - firstname
+        - lastname
+      properties:
+        email:
+          type: string
+          example: "test@test.test"
+        password:
+          type: string
+          example: "TestTest123"
+        firstname:
+          type: string
+          example: "John"
+        lastname:
+          type: string
+          example: "Doe"
+    Timer:
+      required:
+        - teamid
+      properties:
+        teamid:
+          type: number
+          example: 5
+    SetMood:
+      required:
+        - teamid
+        - mood
+      properties:
+        teamid:
+          type: number
+          example: 5
+        mood:
+          type: number
+          example: 2
+        note:
+          type: string
+          example: Today is a good day
+    GetMood:
+      required:
+        - teamid
+        - startDate
+        - endDate
+      properties:
+        teamid:
+          type: number
+          example: 5
+        startDate:
+          type: string
+          example: 2022-06-12
+        endDate:
+          type: string
+          example: 2022-06-12
+    Profile:
+      required:
+        - tags
+        - firstname
+        - lastname
+      properties:
+        tags:
+          type: array
+          example: [ "Java", "C++", "Lisp" ]
+          items:
+            type: string
+        firstname:
+          type: string
+          example: John
+        lastname:
+          type: string
+          example: Doe
+    TeamName:
+      required:
+        - teamname
+      properties:
+        teamname:
+          type: string
+          example: "Bugs Bunnies"
+    TeamId:
+      required:
+        - teamid
+      properties:
+        teamid:
+          type: number
+          example: 5
+    TeamMember:
+      required:
+        - teamid
+        - userId
+      properties:
+        teamid:
+          type: number
+          example: 5
+        userId:
+          type: number
+          example: 21
+    AddTeamMember:
+      required:
+        - userEmail
+        - teamId
+      properties:
+        userEmail:
+          type: string
+          example: test@test.test
+        teamId:
+          type: number
+          example: 5

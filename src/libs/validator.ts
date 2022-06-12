@@ -78,7 +78,7 @@ function isId(id: any): boolean {
  * @param id
  */
 function isIdMood(id: any): boolean {
-    if (id != undefined && typeof id != "boolean" && (Number(id) == 0 || Number(id) == 1 || Number(id) == 2)) {
+    if (id != undefined && typeof id != "boolean" && (Number(id) == 0 || Number(id) == 1 || Number(id) == 2|| Number(id) == 3)) {
         return true;
     }
     return false;
