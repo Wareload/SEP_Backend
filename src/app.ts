@@ -1,16 +1,23 @@
-import express from 'express'
+import express, {Request, Response} from 'express'
 import cookieParser from 'cookie-parser'
 import logger from 'morgan'
 import session from 'express-session';
 import cors from "cors"
 
 const MySQLStore = require('express-mysql-session')(session);
-import {accountRouter} from './routes/account'
-import {profileRouter} from "./routes/profile";
-import {teamRouter} from "./routes/team";
-import {moodRouter} from "./routes/mood";
+//define the session cookie
+declare module "express-session" {
+    interface SessionData {
+        user_id?: number;
+    }
+}
+//routes
+import {accountRouter} from './routes/accountRoute'
+import {profileRouter} from "./routes/profileRoute";
+import {teamRouter} from "./routes/teamRoute";
+import {moodRouter} from "./routes/moodRoute";
 
-let app = express()
+const app = express()
 const options = {
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,
@@ -45,8 +52,8 @@ app.use("/profile", profileRouter)
 app.use("/team", teamRouter)
 app.use("/mood", moodRouter)
 
-// @ts-ignore
-app.use(function (err, req, res, next) {
+
+app.use(function (err: any, req: Request, res: Response) {
     console.error(err)
     res.status(err.status || 500).send();
 })

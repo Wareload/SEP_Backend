@@ -8,3 +8,4 @@ node_modules
 doc
 README.md
 *.test.ts
+*.js.map

@@ -1,0 +1,303 @@
+openapi: 3.0.3
+info:
+  title: SEP Backend
+  description: Backend of SEP Group Bugs Bunnies of University of Mannheim
+  version: 1.0.0
+  contact:
+    name: Bugs Bunnies
+    url: https://bugsbunnies.de/
+    email: bugsbunnies@gmx.de
+servers:
+  - url: 'http://localhost:3000'
+    description: Local Test Server
+  - url: 'https://api.bugsbunnies.de:443'
+    description: Remote Test Server
+paths:
+  /account/register:
+    post:
+      description: Register
+      tags:
+        - Account
+      responses:
+        200:
+          description: Successful Register
+        400:
+          description: Bad Request
+        409:
+          description: Conflict, Email already taken
+        500:
+          description: Server Error
+  /account/login:
+    post:
+      description: Login
+      tags:
+        - Account
+      responses:
+        200:
+          description: Successful Login
+        400:
+          description: Bad Request
+        401:
+          description: Login failed
+        500:
+          description: Server Error
+  /account/isLoggedIn:
+    post:
+      description: Is Logged In
+      tags:
+        - Account
+      responses:
+        200:
+          description: User is logged in
+        401:
+          description: User is n ot logged in
+        500:
+          description: Server Error
+  /account/logout:
+    post:
+      description: Logout
+      tags:
+        - Account
+      responses:
+        200:
+          description: Successful Logout
+        500:
+          description: Server Error
+  /profile/adjustProfile:
+    post:
+      description: Adjust Profile
+      tags:
+        - Profile
+      responses:
+        200:
+          description: Successful Adjust Profile
+        400:
+          description: Bad Request
+        401:
+          description: Unauthorized
+        500:
+          description: Server Error
+  /profile/getProfile:
+    post:
+      description: Get Profile
+      tags:
+        - Profile
+      responses:
+        200:
+          description: Successful Get Profile
+        401:
+          description: Unauthorized
+        500:
+          description: Server Error
+  /mood/getTimer:
+    post:
+      description: Get Timer
+      tags:
+        - Mood
+      responses:
+        200:
+          description: Successful Get Timer
+        401:
+          description: Unauthorized
+        409:
+          description: Timer is on cooldown
+        500:
+          description: Server Error
+  /mood/setMood:
+    post:
+      description: Set Mood
+      tags:
+        - Mood
+      responses:
+        200:
+          description: Successful Set Mood
+        400:
+          description: Bad Request
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden, Invalid Team
+        409:
+          description: Mood already set for current day
+        500:
+          description: Server Error
+  /mood/getPersonalMood:
+    post:
+      description: Get Personal Mood
+      tags:
+        - Mood
+      responses:
+        200:
+          description: Successful Get Personal Mood
+        400:
+          description: Bad Request
+        401:
+          description: Unauthorized
+        500:
+          description: Server Error
+  /mood/getTeamMood:
+    post:
+      description: Get Team Mood
+      tags:
+        - Mood
+      responses:
+        200:
+          description: Successful Get Team Mood
+        400:
+          description: Bad Request
+        401:
+          description: Unauthorized
+        500:
+          description: Server Error
+  /team/createTeam:
+    post:
+      description: Create a new Team
+      tags:
+        - Team
+      responses:
+        200:
+          description: Successful Create a new Team
+        400:
+          description: Bad Request
+        401:
+          description: Unauthorized
+        500:
+          description: Server Error
+  /team/deleteTeam:
+    post:
+      description: Delete a new Team
+      tags:
+        - Team
+      responses:
+        200:
+          description: Successful Delete a Team
+        400:
+          description: Bad Request
+        401:
+          description: Unauthorized
+        500:
+          description: Server Error
+  /team/getTeams:
+    post:
+      description: Get all Teams of logged in user
+      tags:
+        - Team
+      responses:
+        200:
+          description: Successful Delete a Team
+        401:
+          description: Unauthorized
+        500:
+          description: Server Error
+  /team/getTeam:
+    post:
+      description: Get Team by id
+      tags:
+        - Team
+      responses:
+        200:
+          description: Successful Delete a Team
+        400:
+          description: Bad Request
+        401:
+          description: Unauthorized
+        500:
+          description: Server Error
+  /team/removeTeamMember:
+    post:
+      description: Get Team by id
+      tags:
+        - Team
+      responses:
+        200:
+          description: Successful Delete a Team
+        400:
+          description: Bad Request
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        409:
+          description: Conflict, Team member doesn't exist
+        500:
+          description: Server Error
+  /team/leaveTeam:
+    post:
+      description: Leave Team by id
+      tags:
+        - Team
+      responses:
+        200:
+          description: Successful left Team
+        400:
+          description: Bad Request
+        401:
+          description: Unauthorized
+        409:
+          description: Conflict, can't leave team
+        500:
+          description: Server Error
+  /team/getInvitations:
+    post:
+      description: Get all team invitations
+      tags:
+        - Team
+      responses:
+        200:
+          description: Successful got all invitations
+        401:
+          description: Unauthorized
+        500:
+          description: Server Error
+  /team/promoteTeamLeader:
+    post:
+      description: Promote other team member to team leader and demote self
+      tags:
+        - Team
+      responses:
+        200:
+          description: Successful got all invitations
+        400:
+          description: Bad Request
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        409:
+          description: Conflict
+        500:
+          description: Server Error
+  /team/addTeamMember:
+    post:
+      description: Add team member to team
+      tags:
+        - Team
+      responses:
+        200:
+          description: Successful add team member to team
+        400:
+          description: Bad Request
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        409:
+          description: Conflict, already got an invitation
+        500:
+          description: Server Error
+  /team/acceptInvitation:
+    post:
+      description: Accept invitation
+      tags:
+        - Team
+      responses:
+        200:
+          description: Successful add team member to team
+        400:
+          description: Bad Request
+        401:
+          description: Unauthorized
+        409:
+          description: Conflict, already got an invitation
+        500:
+          description: Server Error
