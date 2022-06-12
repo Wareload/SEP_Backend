@@ -200,7 +200,7 @@ async function promoteTeamLeader(user_id: any, memberId: any, teamId: any): Prom
         return {status: 401}
     }
     if (!(validator.isId(memberId) && validator.isId(teamId))) {
-        return {status: 40}
+        return {status: 400}
     }
     try {
         const check = await sql.awaitQuery("SELECT null FROM teammember WHERE userid = ? AND teamid = ? AND leader = ?", [user_id, teamId, 1]);
