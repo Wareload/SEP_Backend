@@ -273,7 +273,7 @@ async function acceptInvitation(user_id: any, teamId: any): Promise<{ status: nu
         if (check.affectedRows == 0) {
             return {status: 409}
         }
-        await sql.awaitQuery("INSERT INTO `bugsbunnies`.`teammember` (`teamid`, `userid`, `leader`) VALUES ('?', '?', '?')", [teamId, user_id, 0]);
+        await sql.awaitQuery("INSERT INTO teammember (teamid, userid, leader) VALUES (?, ?, ?)", [teamId, user_id, 0]);
         return {status: 200}
     } catch (e) {
         console.error(e)
