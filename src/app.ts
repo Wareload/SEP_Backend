@@ -52,7 +52,9 @@ app.use("/profile", profileRouter)
 app.use("/team", teamRouter)
 app.use("/mood", moodRouter)
 
-
+app.use(function (req, res) {
+    res.status(404).send();
+})
 app.use(function (err: any, req: Request, res: Response) {
     console.error(err)
     res.status(err.status || 500).send();
