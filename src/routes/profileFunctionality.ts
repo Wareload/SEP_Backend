@@ -50,7 +50,7 @@ async function getProfile(user_id: any): Promise<{ status: number, body?: {} }> 
         for (let item of encTags) {
             tags.push(aes.decrypt(item));
         }
-        return {status: 200, body: {"email": email, "fistname": firstname, "lastname": lastname, "tags": tags}}
+        return {status: 200, body: {"email": email, "firstname": firstname, "lastname": lastname, "tags": tags}}
     } catch (e) {
         console.error(e)
         return {status: 500};
