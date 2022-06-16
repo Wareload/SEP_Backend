@@ -61,11 +61,10 @@ async function getTeams(user_id: any): Promise<{ status: number, body?: {} }> {
         return {status: 401}
     }
     try {
-        const result = await sql.awaitQuery("SELECT teamid, team.name FROM teammember INNEER JOIN team ON teamid=team.team_id WHERE userid = ?", [user_id]);
+        const result = await sql.awaitQuery("SELECT teamid, team.name, leader FROM teammember INNEER JOIN team ON teamid=team.team_id WHERE userid = ?", [user_id]);
         const teams = [];
         for (let item of result) {
-            item.name = aes.decrypt(item.name);
-            teams.push(item)
+            teams.push({"name": aes.decrypt(item.name), "teamid": item.teamid, "leader": item.leader})
         }
         return {status: 200, body: {"teams": teams}}
     } catch (e) {
@@ -98,6 +97,7 @@ async function getTeam(user_id: any, teamId: any): Promise<{ status: number, bod
         for (const item of resultTeamMember) {
             const userId = item.userid
             const email = aes.decrypt(item.email);
+            const lead = item.leader;
             const firstname = aes.decrypt(item.firstname);
             const lastname = aes.decrypt(item.lastname);
             const encTags = JSON.parse(item.tags);
@@ -105,7 +105,14 @@ async function getTeam(user_id: any, teamId: any): Promise<{ status: number, bod
             for (const tag of encTags) {
                 tags.push(aes.decrypt(tag))
             }
-            const obj = {"userid": userId, "email": email, "firstname": firstname, "lastname": lastname, "tags": tags}
+            const obj = {
+                "userid": userId,
+                "email": email,
+                "firstname": firstname,
+                "lastname": lastname,
+                "leader": lead,
+                "tags": tags
+            }
             member.push(obj)
         }
         const obj = {"teamname": aes.decrypt(resultTeam[0].name), "teamid": teamId, "member": member};

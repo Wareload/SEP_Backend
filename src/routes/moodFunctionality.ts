@@ -75,7 +75,7 @@ async function getTeamMood(user_id: any, teamId: any, startDate: any, endTime: a
         return {status: 400}
     }
     try {
-        const result = await sql.awaitQuery("SELECT mood, note, datestamp FROM mood WHERE user_id = ? AND CAST(datestamp as DATE) BETWEEN ? AND ?", [user_id, startDate, endTime])
+        const result = await sql.awaitQuery("SELECT mood, note, datestamp FROM mood WHERE team_id = ? AND CAST(datestamp as DATE) BETWEEN ? AND ?", [teamId, startDate, endTime])
         const arr = handleGetMood(result);
         return {status: 200, body: {moods: arr}};
     } catch (e) {
