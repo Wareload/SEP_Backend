@@ -74,11 +74,11 @@ function isId(id: any): boolean {
 }
 
 /**
- * check if id is a number
+ * check if id is a number and between 0 and 6
  * @param id
  */
 function isIdMood(id: any): boolean {
-    if (id != undefined && typeof id != "boolean" && (Number(id) == 0 || Number(id) == 1 || Number(id) == 2|| Number(id) == 3)) {
+    if (id != undefined && typeof id == "number" && (Number(id) > -1 && Number(id) < 6)) {
         return true;
     }
     return false;
