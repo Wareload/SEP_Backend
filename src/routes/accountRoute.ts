@@ -1,5 +1,5 @@
 import express from "express";
-import * as func from "./accountFunctionality"
+import * as func from "./accountFunctionality.js"
 
 let router = express.Router();
 

@@ -1,6 +1,6 @@
 process.env.AES_ENC_KEY = "8768aea604fe0172d9273bfc27ehfb8a";
 process.env.AES_IV = "4e6f85301e155e63"
-import {decrypt, encrypt} from "./aes";
+import {decrypt, encrypt} from "./aes.js";
 
 
 test("Testing AES", () => {

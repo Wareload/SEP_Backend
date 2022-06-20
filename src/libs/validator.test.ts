@@ -1,4 +1,4 @@
-import * as validator from "./validator";
+import * as validator from "./validator.js";
 
 test("Test Validator isEmail", () => {
     let email: any[] = ["1.1@1", "bugs@bunny.best", "test@test.test", "G65Sl14t9A9Nwf0W6PqUOlUDUrNmXaFLnDrjvnB2DwWuKRPCfia1zDqwQxyVRpbuqoB8WwdBAm9CV1KMgF55RJxCCSbJUk4lNjANFDTLB0GGWXhPIBQpYrVmdzOPSQJuZPJ4FksqAmXgE3zepCBg2E78eZ2hnffZS14.LfeIkNUEiriP45UzylTQeMZFfVzF7WSKJJ3n0TSB@bPlNS7PUO0yszmIoqVZ0zzoZwGYJKiGuPCgvNv1uI9DavDKD3xTkkLjorjynlc0frFBWnKajkZRasHznVVl8KZNWDOxbkh05XLn8cgIdcvuLonu5wVnnD"];

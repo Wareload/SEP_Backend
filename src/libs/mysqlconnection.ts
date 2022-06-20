@@ -88,6 +88,6 @@ async function setup() {
     }
 }
 
-setup();
+await setup();
 
 export {connection as sql}

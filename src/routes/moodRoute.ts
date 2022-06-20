@@ -1,5 +1,5 @@
 import express from "express";
-import * as func from "./moodFunctionality"
+import * as func from "./moodFunctionality.js"
 
 let router = express.Router();
 

@@ -1,6 +1,6 @@
-import * as aes from '../libs/aes'
-import {sql} from '../libs/mysqlconnection'
-import * as validator from '../libs/validator'
+import * as aes from '../libs/aes.js'
+import {sql} from '../libs/mysqlconnection.js'
+import * as validator from '../libs/validator.js'
 
 /**
  * adjust profile

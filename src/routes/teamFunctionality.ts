@@ -1,6 +1,6 @@
-import * as aes from '../libs/aes'
-import {sql} from '../libs/mysqlconnection'
-import * as validator from '../libs/validator'
+import * as aes from '../libs/aes.js'
+import {sql} from '../libs/mysqlconnection.js'
+import * as validator from '../libs/validator.js'
 
 /**
  * create team
@@ -61,7 +61,7 @@ async function getTeams(user_id: any): Promise<{ status: number, body?: {} }> {
         return {status: 401}
     }
     try {
-        const result = await sql.awaitQuery("SELECT teamid, team.name, leader FROM teammember INNEER JOIN team ON teamid=team.team_id WHERE userid = ?", [user_id]);
+        const result = await sql.awaitQuery("SELECT teamid, team.name, leader FROM teammember INNER JOIN team ON teamid=team.team_id WHERE userid = ?", [user_id]);
         const teams = [];
         for (let item of result) {
             teams.push({"name": aes.decrypt(item.name), "teamid": item.teamid, "leader": item.leader})

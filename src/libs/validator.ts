@@ -78,7 +78,7 @@ function isId(id: any): boolean {
  * @param id
  */
 function isIdMood(id: any): boolean {
-    if (id != undefined && typeof id == "number" && (Number(id) > -1 && Number(id) < 6)) {
+    if (id != undefined && !isNaN(Number(id)) && Number(id) > -1 && Number(id) < 6) {
         return true;
     }
     return false;

@@ -1,5 +1,5 @@
 import express from "express";
-import * as func from "./teamFunctionality"
+import * as func from "./teamFunctionality.js"
 
 let router = express.Router();
 

@@ -32,13 +32,13 @@ To run this application there is also a mysql database needed.
 This application is developed for a mysql flex database from Azure, so their ssl certificate has to be stored in cert
 and named "cert.pem"
 
-To create a docker image execute
+To create a docker image execute 
 
 ```bash
   docker build -t {registry}/{user}/{image-name}:version-tag .
 ```
 
-where registry and user are not necessary.
+where registry and user are not necessary. You need to call the typescript compiler first, because there is no multistaged build yet.
 
 ## Environment Variables
 

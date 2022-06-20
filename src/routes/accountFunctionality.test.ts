@@ -1,4 +1,4 @@
-import * as func from "./accountFunctionality"
+import * as func from "./accountFunctionality.js"
 
 // @ts-ignore
 import mysql from 'mysql-await'

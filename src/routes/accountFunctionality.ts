@@ -1,7 +1,7 @@
-import * as aes from '../libs/aes'
-import {sql} from '../libs/mysqlconnection'
+import * as aes from '../libs/aes.js'
+import {sql} from '../libs/mysqlconnection.js'
 import bcrypt from 'bcrypt'
-import * as validator from '../libs/validator'
+import * as validator from '../libs/validator.js'
 
 const saltRounds = 10
 
