@@ -7,14 +7,22 @@ Backend of the group "Bugs Bunnies" for the SEP of the "Hochschule Mannheim" in 
 To deploy this project run
 
 ```bash
-  npm run start
+  npm run start-ts
 ```
 
-after calling the typescript compiler with the npm build command.
+To run the typescript compiler run
 
 ```bash
   npm run build
 ```
+
+To run the generated javascript project
+
+```bash
+  npm run start
+```
+
+_Currently, not working_
 
 For testing (jest framework) run
 
@@ -27,18 +35,24 @@ A sample docker-compose file is [this](doc/full_docker-compose.yml).
 
 Take care, you might not have access to the used docker registry and build an image.
 
-To run this application there is also a mysql database needed.
+To run this application there is also a mysql database needed with TLS.
 
-This application is developed for a mysql flex database from Azure, so their ssl certificate has to be stored in cert
-and named "cert.pem"
+This application is developed for a mysql flex database from Azure.
 
-To create a docker image execute 
+To create a docker image execute
 
 ```bash
   docker build -t {registry}/{user}/{image-name}:version-tag .
 ```
 
-where registry and user are not necessary. You need to call the typescript compiler first, because there is no multistaged build yet.
+where registry and user are not necessary. You need to call the typescript compiler first, because there is no
+multistaged build yet.
+
+or
+
+```bash
+  npm run build-docker
+```
 
 ## Environment Variables
 
@@ -59,6 +73,8 @@ To run this project, you will need to add the following environment variables to
 `AES_ENC_KEY`     as the aes encryption key
 
 `AES_IV`          as the aes initial vector
+
+`DEBUG`             to enable debug informations, e.g. backend.*
 
 #### Testing Environment
 
