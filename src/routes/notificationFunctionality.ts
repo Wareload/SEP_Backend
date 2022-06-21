@@ -1,4 +1,5 @@
 import {sql} from '../libs/mysqlconnection.js'
+import {decrypt} from "../libs/aes.js";
 
 async function getAlert(user_id: any): Promise<{ status: number, body?: {} }> {
     if (!user_id) {
@@ -9,11 +10,14 @@ async function getAlert(user_id: any): Promise<{ status: number, body?: {} }> {
         const body: { moods: any[] } = {moods: []};
         for (const element of result) {
             const teamId = element.teamid;
-            const res = await sql.awaitQuery("SELECT AVG(mood) as avg, MAX(mood) as min FROM mood WHERE CAST(datestamp as DATE) BETWEEN CAST(CURRENT_TIMESTAMP as DATE) AND CAST(CURRENT_TIMESTAMP as DATE) AND team_id = ? GROUP BY team_id", [teamId])
+            const res = await sql.awaitQuery("SELECT AVG(mood) as avg, MAX(mood) as min, team.name as teamname FROM mood INNER JOIN team ON mood.team_id = team.team_id WHERE CAST(datestamp as DATE) BETWEEN CAST(CURRENT_TIMESTAMP as DATE) AND CAST(CURRENT_TIMESTAMP as DATE) AND mood.team_id = ? GROUP BY mood.team_id", [teamId])
             if (res.length != 0) {
-                const obj: any = {"teamid": teamId};
-                obj.avg = res[0].avg;
-                obj.min = res[0].min
+                const obj: any = {
+                    "teamid": teamId,
+                    "teamname": decrypt(res[0].teamname),
+                    "avg": res[0].avg,
+                    "min": res[0].min
+                };
                 body.moods.push(obj)
             }
         }
