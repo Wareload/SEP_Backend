@@ -6,6 +6,7 @@ import cors from "cors"
 
 import MySQLSessionStore from "express-mysql-session";
 
+
 // @ts-ignore
 const store = MySQLSessionStore(session);
 

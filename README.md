@@ -22,8 +22,6 @@ To run the generated javascript project
   npm run start
 ```
 
-_Currently, not working_
-
 For testing (jest framework) run
 
 ```bash
@@ -74,7 +72,7 @@ To run this project, you will need to add the following environment variables to
 
 `AES_IV`          as the aes initial vector
 
-`DEBUG`             to enable debug informations, e.g. backend.*
+`DEBUG`           to enable debug informations, e.g. backend.*
 
 #### Testing Environment
 
@@ -89,4 +87,6 @@ To run this project, you will need to add the following environment variables to
 `DB_PASSWORD`     as the mysql password
 
 `DB_DATABASE`     as the mysql used database
+
+`DEBUG`           to enable debug informations, e.g. backend.*
 

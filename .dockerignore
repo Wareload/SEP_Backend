@@ -10,3 +10,5 @@ README.md
 *.test.ts
 *.test.js
 *.js.map
+swagger.yml
+Dockerfile

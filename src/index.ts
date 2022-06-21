@@ -41,9 +41,10 @@ server.on('error', onError);
 
 function onListening() {
     const addr = server.address();
-    // @ts-ignore
-    const bind = typeof addr !== 'string' ? 'port ' + addr.port : 'pipe ' + addr;
-    debug('Listening on ' + bind);
+    if (addr != null) {
+        const bind = typeof addr !== 'string' ? 'port ' + addr.port : 'pipe ' + addr;
+        debug('Listening on ' + bind);
+    }
 }
 
 server.on('listening', onListening)
