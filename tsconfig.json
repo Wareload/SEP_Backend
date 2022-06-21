@@ -111,8 +111,8 @@
     /* Skip type checking all .d.ts files. */
   },
   "exclude": [
-    "**/*.test.*",
-    "**/__mocks__/*",
-    "**/__tests__/*"
+ //   "**/*.test.*",
+ //   "**/__mocks__/*",
+ //   "**/__tests__/*"
   ]
 }
