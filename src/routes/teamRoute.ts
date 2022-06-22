@@ -164,4 +164,14 @@ router.post("/acceptInvitation", async function (req, res, next) {
 
 })
 
+/**
+ * decline team invitation
+ */
+router.post("/declineInvitation", async function (req, res, next){
+    const user_id = req.session.user_id;
+    const teamId = req.body.teamid;
+    const result = await func.declineInvitation(user_id, teamId)
+    res.status(result.status).send(result.body)
+})
+
 export {router as teamRouter}

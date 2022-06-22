@@ -5,7 +5,7 @@ import Debug from 'debug'
 const debug = Debug('backend:server')
 
 //http port
-let port = 3000
+const port = 3000
 
 app.set('port', port)
 

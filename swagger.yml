@@ -399,6 +399,26 @@ paths:
           description: Conflict, already got an invitation
         500:
           description: Server Error
+  /team/declineInvitation:
+    post:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamId'
+      description: Decline invitation
+      tags:
+        - Team
+      responses:
+        200:
+          description: Successful add team member to team
+        400:
+          description: Bad Request
+        409:
+          description: Conflict, no invitation to remove
+        500:
+          description: Server Error
   /notification/getAlert:
     post:
       description: Get notification info
@@ -416,7 +436,7 @@ paths:
         500:
           description: Server Error
 security:
-  - cookieAuth: []
+  - cookieAuth: [ ]
 components:
   securitySchemes:
     cookieAuth:
@@ -563,7 +583,7 @@ components:
       properties:
         mood:
           type: array
-          example: [{mood: 2, note: "Good day", date: 2022-05-05},{mood: 0, note: "Bad day", date: 2022.05.06}]
+          example: [ { mood: 2, note: "Good day", date: 2022-05-05 },{ mood: 0, note: "Bad day", date: 2022.05.06 } ]
           items:
             type: object
     TeamInfo:
@@ -578,5 +598,5 @@ components:
       properties:
         moods:
           type: array
-          example: [{"teamid": 36,"avg": 3,"min": 3},{"teamid": 66,"avg": 3,"min": 3}]
+          example: [ { "teamid": 36,"avg": 3,"min": 3 },{ "teamid": 66,"avg": 3,"min": 3 } ]
 

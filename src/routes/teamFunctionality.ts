@@ -288,6 +288,30 @@ async function acceptInvitation(user_id: any, teamId: any): Promise<{ status: nu
     }
 }
 
+/**
+ * decline team invitation
+ * @param user_id
+ * @param teamId
+ */
+async function declineInvitation(user_id: any, teamId: any): Promise<{ status: number, body?: {} }> {
+    if (!user_id) {
+        return {status: 401}
+    }
+    if (!validator.isId(teamId)) {
+        return {status: 400}
+    }
+    try {
+        const check = await sql.awaitQuery("DELETE FROM invitation WHERE user_id = ? AND team_id = ?", [user_id, teamId]);
+        if (check.affectedRows == 0) {
+            return {status: 409}
+        }
+        return {status: 200}
+    } catch (e) {
+        console.error(e)
+        return {status: 500}
+    }
+}
+
 export {
     createTeam,
     deleteTeam,
@@ -298,5 +322,6 @@ export {
     getInvitations,
     promoteTeamLeader,
     addTeamMember,
-    acceptInvitation
+    acceptInvitation,
+    declineInvitation
 }

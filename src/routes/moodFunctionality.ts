@@ -2,6 +2,11 @@ import * as aes from '../libs/aes.js'
 import {sql} from '../libs/mysqlconnection.js'
 import * as validator from '../libs/validator.js'
 
+/**
+ * checks if mood in a specific team for the user is already set for the current date
+ * @param user_id
+ * @param teamId
+ */
 async function getTimer(user_id: any, teamId: any): Promise<{ status: number, user_id?: number, body?: {} }> {
     if (!user_id) {
         return {status: 401}
@@ -21,6 +26,13 @@ async function getTimer(user_id: any, teamId: any): Promise<{ status: number, us
     }
 }
 
+/**
+ * set the mood in a specific team for the user for the current day
+ * @param user_id
+ * @param mood
+ * @param note
+ * @param teamId
+ */
 async function setMood(user_id: any, mood: any, note: any, teamId: any): Promise<{ status: number, user_id?: number, body?: {} }> {
     if (!user_id) {
         return {status: 401}
@@ -50,6 +62,13 @@ async function setMood(user_id: any, mood: any, note: any, teamId: any): Promise
     }
 }
 
+/**
+ * get the Personal Mood from a team for the user
+ * @param user_id
+ * @param teamId
+ * @param startDate
+ * @param endTime
+ */
 async function getPersonalMood(user_id: any, teamId: any, startDate: any, endTime: any): Promise<{ status: number, user_id?: number, body?: {} }> {
     if (!user_id) {
         return {status: 401}
@@ -67,6 +86,13 @@ async function getPersonalMood(user_id: any, teamId: any, startDate: any, endTim
     }
 }
 
+/**
+ * get the Team Mood from a team for the user
+ * @param user_id
+ * @param teamId
+ * @param startDate
+ * @param endTime
+ */
 async function getTeamMood(user_id: any, teamId: any, startDate: any, endTime: any): Promise<{ status: number, user_id?: number, body?: {} }> {
     if (!user_id) {
         return {status: 401}
@@ -84,10 +110,19 @@ async function getTeamMood(user_id: any, teamId: any, startDate: any, endTime: a
     }
 }
 
+/**
+ * check if user is in the team
+ * @param user_id
+ * @param teamId
+ */
 async function isUserInTeam(user_id: number, teamId: number): Promise<boolean> {
     return (await sql.awaitQuery("SELECT null FROM teammember WHERE teamid = ? AND userid = ?;", [teamId, user_id])).length > 0;
 }
 
+/**
+ * transform date to string
+ * @param date
+ */
 function getDateToString(date: Date) {
     let year = date.getFullYear();
     let month = ("0" + (date.getMonth() + 1)).slice(-2);
@@ -95,6 +130,10 @@ function getDateToString(date: Date) {
     return year + "-" + month + "-" + day
 }
 
+/**
+ * transform sql result to mood array
+ * @param result
+ */
 function handleGetMood(result: any): { mood: number, note: string, date: string }[] {
     const arr: { mood: number; note: string; date: string }[] = [];
     result.forEach((element: any) => {

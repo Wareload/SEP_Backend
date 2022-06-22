@@ -1,6 +1,10 @@
 import {sql} from '../libs/mysqlconnection.js'
 import {decrypt} from "../libs/aes.js";
 
+/**
+ * get alert information
+ * @param user_id
+ */
 async function getAlert(user_id: any): Promise<{ status: number, body?: {} }> {
     if (!user_id) {
         return {status: 401}
