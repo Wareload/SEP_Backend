@@ -105,17 +105,17 @@ describe("Testing All Routes", () => {
         expect(team1.status).toBe(200)
         const teams = await team.getTeams(account1.user_id);
         expect(teams.status).toBe(200)
-        // @ts-ignore
+            // @ts-ignore
         const teamId = team1.body.teamid;
-        // @ts-ignore
+            // @ts-ignore
         expect(teams.body.teams.length).toBe(1)
         const teamDelete = await team.createTeam(account1.user_id, teamName);
         expect(teamDelete.status).toBe(200)
         const teamsD = await team.getTeams(account1.user_id);
         expect(teamsD.status).toBe(200)
-        // @ts-ignore
+            // @ts-ignore
         const teamIdD = teamsD.body.teamid;
-        // @ts-ignore
+            // @ts-ignore
         expect(teamsD.body.teams.length).toBe(2)
         const invite = await team.addTeamMember(account1.user_id, emailAccount2, teamId)
         expect(invite.status).toBe(200)

@@ -258,6 +258,10 @@ async function addTeamMember(user_id: any, userEmail: any, teamId: any): Promise
         if (e.errno == 1062) {
             return {status: 409}//already got an invitation
         }
+        // @ts-ignore
+        if (e.errno == 1452){
+            return {status: 410}//team does not exist
+        }
         console.error(e)
         return {status: 500}
     }

@@ -375,6 +375,8 @@ paths:
           description: Forbidden
         409:
           description: Conflict, already got an invitation
+        410:
+          description: Conflict, team does not exist
         500:
           description: Server Error
   /team/acceptInvitation:
