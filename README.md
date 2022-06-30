@@ -37,6 +37,8 @@ To run this application there is also a mysql database needed with TLS.
 
 This application is developed for a mysql flex database from Azure.
 
+The required tables will be created on start.
+
 To create a docker image execute
 
 ```bash
@@ -51,6 +53,10 @@ or
 ```bash
   npm run build-docker
 ```
+
+## Api
+
+The Api is described [here](./swagger.yml).
 
 ## Environment Variables
 

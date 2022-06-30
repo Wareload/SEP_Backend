@@ -35,10 +35,10 @@ function isText45(text: any): boolean {
 }
 
 /**
- * is text with length >0 ad length <71
+ * is text with length >0 ad length <201
  * @param text
  */
-function isText70(text: any): boolean {
+function isText200(text: any): boolean {
     if ((text == undefined) || (typeof text == 'string' && text.length < 71)) {
         return true;
     }
@@ -98,4 +98,4 @@ function isNumeric(n: any) {
     return !isNaN(parseFloat(n)) && isFinite(n);
 }
 
-export {isEmail, isPassword, isText45, isText70, isTagsArray, isId, isIdMood, isDate}
+export {isEmail, isPassword, isText45, isText200, isTagsArray, isId, isIdMood, isDate}

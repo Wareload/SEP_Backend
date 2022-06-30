@@ -13,10 +13,10 @@ const connection = mysql.createPool({
 //user table
 const user = "CREATE TABLE IF NOT EXISTS `user` (\n" +
     "  `user_id` int NOT NULL AUTO_INCREMENT,\n" +
-    "  `email` varchar(400) NOT NULL,\n" +
+    "  `email` varchar(500) NOT NULL,\n" +
     "  `password` varchar(500) NOT NULL,\n" +
-    "  `firstname` varchar(60) NOT NULL,\n" +
-    "  `lastname` varchar(60) NOT NULL,\n" +
+    "  `firstname` varchar(70) NOT NULL,\n" +
+    "  `lastname` varchar(70) NOT NULL,\n" +
     "  `tags` json NOT NULL,\n" +
     "  PRIMARY KEY (`user_id`),\n" +
     "  UNIQUE KEY `user_id_UNIQUE` (`user_id`),\n" +
@@ -64,7 +64,7 @@ const mood = "CREATE TABLE IF NOT EXISTS `mood` (\n" +
     "  `user_id` int NOT NULL,\n" +
     "  `team_id` int NOT NULL,\n" +
     "  `mood` smallint NOT NULL,\n" +
-    "  `note` varchar(80) NOT NULL,\n" +
+    "  `note` varchar(290) NOT NULL,\n" +
     "  `datestamp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\n" +
     "  PRIMARY KEY (`mood_id`),\n" +
     "  UNIQUE KEY `mood_id_UNIQUE` (`mood_id`),\n" +

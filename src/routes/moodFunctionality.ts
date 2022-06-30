@@ -37,7 +37,7 @@ async function setMood(user_id: any, mood: any, note: any, teamId: any): Promise
     if (!user_id) {
         return {status: 401}
     }
-    if (!(validator.isId(teamId) && validator.isIdMood(mood) && validator.isId(teamId) && validator.isText70(note))) {
+    if (!(validator.isId(teamId) && validator.isIdMood(mood) && validator.isId(teamId) && validator.isText200(note))) {
         return {status: 400}
     }
     try {

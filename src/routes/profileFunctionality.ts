@@ -13,8 +13,15 @@ async function adjustProfile(user_id: any, tags: any, firstname: any, lastname: 
     if (!user_id) {
         return {status: 401};
     }
-    if (!(validator.isTagsArray(tags) && validator.isText45(firstname) && validator.isText45(lastname))) {
-        return {status: 400};
+    try {
+        if (typeof tags == "string"){
+            tags = JSON.parse(tags)
+        }
+        if (!(validator.isTagsArray(tags) && validator.isText45(firstname) && validator.isText45(lastname))) {
+            return {status: 400};
+        }
+    } catch (e) {
+        return {status: 400}
     }
     firstname = aes.encrypt(firstname);
     lastname = aes.encrypt(lastname)
