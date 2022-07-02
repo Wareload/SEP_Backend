@@ -39,6 +39,8 @@ This application is developed for a mysql flex database from Azure.
 
 The required tables will be created on start.
 
+You need to put the TLS certificate named as cert.pem in the [cert](cert) directory.
+
 To create a docker image execute
 
 ```bash
